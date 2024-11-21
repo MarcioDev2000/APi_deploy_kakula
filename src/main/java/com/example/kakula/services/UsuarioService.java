@@ -10,7 +10,6 @@ import com.example.kakula.config.JwtUtil;
 import com.example.kakula.dto.UsuarioDto;
 import com.example.kakula.dto.UsuarioResponseDto;
 import com.example.kakula.models.Usuario;
-import com.example.kakula.procuders.UserProducer;
 import com.example.kakula.repositories.UsuarioRepository;
 
 import java.util.Date;
@@ -26,9 +25,6 @@ public class UsuarioService {
 
     @Autowired
     private PasswordEncoder passwordEncoder; 
-
-    @Autowired
-    private UserProducer userProducer;
 
     @Autowired
     private JwtUtil jwtUtil;
@@ -63,9 +59,6 @@ public class UsuarioService {
     
         // Salvar o usuário no banco de dados
         Usuario salvarUsuario = usuarioRepository.save(usuario);
-    
-        // Enviar email de confirmação ou outro tipo de notificação
-        userProducer.sendEmail(salvarUsuario);
         
         return salvarUsuario;
     }
@@ -155,9 +148,7 @@ public class UsuarioService {
     usuario.setTokenExpirationDate(expirationDate);
 
     usuarioRepository.save(usuario);
-
-    String resetLink = "http://localhost:4200/reset-password?token=" + resetPasswordToken;
-    userProducer.sendResetPasswordEmail(usuario.getEmail(), resetLink);
+  
 }
 
 
