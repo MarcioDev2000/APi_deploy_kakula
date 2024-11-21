@@ -16,6 +16,7 @@ public class SEPEService {
     @SuppressWarnings("unchecked")
     public Map<String, Object> consultarBI(String numeroBI) {
         // Constrói a URL dinâmica
+        @SuppressWarnings("deprecation")
         String url = UriComponentsBuilder
                 .fromHttpUrl("https://www.sepe.gov.ao/ao/actions/bi.ajcall.php")
                 .queryParam("bi", numeroBI)
